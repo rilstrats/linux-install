@@ -1,0 +1,3 @@
+# These should be copied and pasted into /etc/fstab to automount shared drives
+UUID=3E56C32256C2D9B3   /media/riley/Shared   ntfs  uid=1000,gid=1000,rw,user,exec,umask=000    0   0
+UUID=29071D3603B7A859   /media/riley/VM       ntfs  uid=1000,gid=1000,rw,user,exec,umask=000    0   0 

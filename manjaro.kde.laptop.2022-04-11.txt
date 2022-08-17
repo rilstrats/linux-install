@@ -1,0 +1,29 @@
+Changed scale to 200%, cursor to 48, and bottom bar to 88 to make it look goo with 4k screen
+Raised touchpad sensitivity to 0.60, set natural scrolling, tap-to-click, and two-finger-right-click
+Set theme to breath dark
+Configured pager to show application outlines and made 4 desktops
+Changed from Linux Kernel 5.15 LTS to 5.10 LTS to fix Wi-Fi (used Manjaro Settings Manager)
+
+Installed megasync-bin (AUR) for cloud access
+Signed in to MEGA
+
+installed discord and slack-desktop (AUR) for communication
+installed virtualbox and all dependencies
+
+Installed visual-studio-code-bin (AUR)
+Installed libsecret and gnome-keyring for code auth (and git auth)
+Opened code and signed in through GitHub
+
+Installed git-credential-manager-core-bin  (AUR) for git auth
+Ran these commands
+    git-credential-manager-core configure
+    git config --global credential.credentialStore secretservice
+    git config --global user.email "riley.s.stratton@outlook.com"
+    git config --global user.name "Riley Stratton"
+
+Added Git folder to home
+Added icons to Git and MEGA folders
+
+Installed arduino, brave-browser, seahorse
+
+Opened Timeshift and configured daily backups
