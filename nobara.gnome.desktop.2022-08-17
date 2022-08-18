@@ -15,6 +15,7 @@ git config --global credential.credentialStore secretservice
 git config --global user.email "riley.s.stratton@outlook.com"
 git config --global user.name "Riley Stratton"
 git config --global color.ui auto
+git config --global init.defaultBranch main
 
 # Git Clone (should open browser to authenticate)
 cd ~/Git
