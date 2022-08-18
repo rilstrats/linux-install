@@ -2,8 +2,8 @@
 
 
 # Update and Install
-sudo dnf update
-sudo dnf install wget discord ntfs-3g neovim zsh util-linux-user
+sudo dnf update -y
+sudo dnf install -y wget discord ntfs-3g neovim zsh util-linux-user
 sudo flatpak install slack bitwarden spotify zoom signal
 
 
