@@ -1,9 +1,27 @@
-# Coding
-sudo dnf install neovim wget
+#!/bin/bash
 
 
+# Update and Install
+sudo dnf update
+sudo dnf install wget discord ntfs-3g neovim zsh util-linux-user
+sudo flatpak install slack bitwarden spotify zoom signal
+
+
+# Drives
+echo "UUID=29071D3603B7A859   /mnt/VM/      ntfs-3g    uid=1000,gid=1000,rw,user,exec,umask=000 0 0
+UUID=5A42FF7E42FF5D67   /mnt/Games/     ntfs-3g uid=1000,gid=1000,rw,user,exec,umask=000 0 0" | sudo tee -a /etc/fstab
+
+
+# Code file structure
+cd $HOME
+mkdir code; cd code
+mkdir src; cd src
+mkdir github.com; cd github.com
+mkdir rilstrats byui-csa
+
+
+# Git
 # Git Credential Manager
-cd ~/Git
 wget https://raw.githubusercontent.com/GitCredentialManager/git-credential-manager/main/src/linux/Packaging.Linux/install-from-source.sh
 cat install-from-source.sh | sed "s/case \"\$distribution\" in/case \"fedora\" in/g" > install-from-source.fedora.sh
 chmod +x install-from-source.fedora.sh
@@ -18,11 +36,11 @@ git config --global color.ui auto
 git config --global init.defaultBranch main
 
 # Git Clone (should open browser to authenticate)
-cd ~/Git
+cd $HOME/code/src/github.com/rilstrats
 git clone https://github.com/rilstrats/gcm-check.git
 
 # Git Push (should automatically authenticate)
-cd ~/Git/gcm-check
+cd $HOME/code/src/github.com/rilstrats/gcm-check
 date >> setup.txt
 git add .
 git commit -m "setup"
@@ -39,10 +57,10 @@ sudo dnf install brave-browser
 
 
 # Mega
-cd ~/Downloads
+cd $HOME/Downloads
 wget https://mega.nz/linux/repo/Fedora_36/x86_64/megasync-Fedora_36.x86_64.rpm
 sudo dnf install ./megasync-Fedora_36.x86_64.rpm
-mv ~/MEGA ~/Mega
+mkdir $HOME/mega
 
 # The following lines are for a GNOME install
 wget https://mega.nz/linux/repo/Fedora_36/x86_64/nautilus-megasync-Fedora_36.x86_64.rpm
@@ -55,45 +73,22 @@ sudo dnf install ./nautilus-megasync-Fedora_36.x86_64.rpm
 # Open mega and sign in
 
 
-# Discord
-# sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-36.noarch.rpm
-sudo dnf install discord
+# .dotfiles clone
+git clone --bare https://github.com/rilstrats/.dotfiles.git
+
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
+alias dfs=dotfiles
+
+dfs checkout
+dfs submodule update
 
 
-# Flatpak items
-sudo flatpak install slack bitwarden spotify zoom signal
-
-
-# Terminal
-cd ~
-sudo dnf install zsh tmux 
-sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" "" --unattended
-
-# Install powerlevel10k zsh-vi-mode zsh-syntax-highlighting zsh-autosuggestions
-mkdir ~/.fonts
-cd ~/.fonts
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf 
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-# Configure terminal (and any other desired apps) to use MesloLGS NF
-
-cd ~
+# Install omz plugins
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 git clone https://github.com/jeffreytse/zsh-vi-mode ${ZSH_CUSTOM}/plugins/zsh-vi-mode
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-cd ~
-cat .zshrc | sed 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' |\
-sed 's/plugins=(git)/plugins=(git sudo zsh-vi-mode zsh-syntax-highlighting zsh-autosuggestions)/g' > .zshrc.new
-mv .zshrc .zshrc.omz
-mv .zshrc.new .zshrc
-# source .zshrc
-
-
-# Drives
-sudo dnf install ntfs-3g
-echo "UUID=29071D3603B7A859   /mnt/VM/      ntfs-3g    uid=1000,gid=1000,rw,user,exec,umask=000 0 0
-UUID=5A42FF7E42FF5D67   /mnt/Games/     ntfs-3g uid=1000,gid=1000,rw,user,exec,umask=000 0 0" | sudo tee -a /etc/fstab
+# Install neovim plugins
+git clone --depth 1 https://github.com/wbthomason/packer.nvim $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
 
