@@ -7,6 +7,15 @@ sudo dnf install -y wget discord ntfs-3g neovim zsh util-linux-user
 sudo flatpak install slack bitwarden spotify zoom signal
 
 
+# Brave
+sudo dnf install dnf-plugins-core
+sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+sudo dnf install brave-browser
+
+# Open brave and set up settings sync
+
+
 # Drives
 echo "UUID=29071D3603B7A859   /mnt/VM/      ntfs-3g    uid=1000,gid=1000,rw,user,exec,umask=000 0 0
 UUID=5A42FF7E42FF5D67   /mnt/Games/     ntfs-3g uid=1000,gid=1000,rw,user,exec,umask=000 0 0" | sudo tee -a /etc/fstab
@@ -47,13 +56,6 @@ git commit -m "setup"
 git push
 
 
-# Brave
-sudo dnf install dnf-plugins-core
-sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
-sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-sudo dnf install brave-browser
-
-# Open brave and set up settings sync
 
 
 # Mega
@@ -85,7 +87,7 @@ dfs submodule update
 
 # Install omz plugins
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-git clone https://github.com/jeffreytse/zsh-vi-mode ${ZSH_CUSTOM}/plugins/zsh-vi-mode
+git clone https://github.com/jeffreytse/zsh-vi-mode ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-vi-mode
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
