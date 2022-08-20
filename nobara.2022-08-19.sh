@@ -64,7 +64,7 @@ cd $HOME
 mkdir code; cd code
 mkdir src; cd src
 mkdir github.com; cd github.com
-mkdir rilstrats byui-csa
+mkdir rilstrats 
 
 
 # Git
