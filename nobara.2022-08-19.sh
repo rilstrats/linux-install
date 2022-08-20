@@ -10,7 +10,7 @@ sudo flatpak install slack bitwarden spotify zoom signal
 # Brave
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
 sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-sudo dnf install brave-browser
+sudo dnf -y install brave-browser
 # Open brave and set up settings sync
 
 
