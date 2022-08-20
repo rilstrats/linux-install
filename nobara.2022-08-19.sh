@@ -84,6 +84,7 @@ fi
 
 
 # .dotfiles clone
+cd $HOME
 git clone --bare https://github.com/rilstrats/.dotfiles.git
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
