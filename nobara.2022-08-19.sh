@@ -1,21 +1,21 @@
 #!/bin/bash
 
 
-# Update and Install
+# update and install
 sudo dnf update -y
 sudo dnf install -y wget discord ntfs-3g neovim zsh util-linux-user dnf-plugins-core
 sudo flatpak install slack bitwarden spotify zoom signal
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 
-# Brave
+# brave
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
 sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 sudo dnf -y install brave-browser
-# Open brave and set up settings sync
+# open brave and set up settings sync
 
 
-# Mega
+# mega
 cd $HOME/Downloads
 wget https://mega.nz/linux/repo/Fedora_36/x86_64/megasync-Fedora_36.x86_64.rpm
 sudo dnf install ./megasync-Fedora_36.x86_64.rpm
@@ -31,7 +31,7 @@ else
     echo "Unsupported Desktop Environment"
     echo "Please manually add File Manager Integration from https://mega.io/desktop"
 fi
-# Open mega and sign in
+# open mega and sign in
 
 
 # fstab 
@@ -68,7 +68,7 @@ mkdir github.com; cd github.com
 mkdir rilstrats 
 
 
-# Git
+# git
 # git-credential-manager
 wget https://raw.githubusercontent.com/GitCredentialManager/git-credential-manager/main/src/linux/Packaging.Linux/install-from-source.sh
 cat install-from-source.sh | sed "s/case \"\$distribution\" in/case \"fedora\" in/g" > install-from-source.fedora.sh
@@ -76,12 +76,11 @@ chmod +x install-from-source.fedora.sh
 ./install-from-source.fedora.sh
 git-credential-manager-core configure
 
-
-# Git Clone (should open browser to authenticate)
+# git clone (should open browser to authenticate)
 cd $HOME/code/src/github.com/rilstrats
 git clone https://github.com/rilstrats/gcm-check.git
 
-# Git Push (should automatically authenticate)
+# git push (should automatically authenticate)
 cd $HOME/code/src/github.com/rilstrats/gcm-check
 date >> setup.txt
 git add .
