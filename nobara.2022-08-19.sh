@@ -3,22 +3,28 @@
 
 # Update and Install
 sudo dnf update -y
-sudo dnf install -y wget discord ntfs-3g neovim zsh util-linux-user
+sudo dnf install -y wget discord ntfs-3g neovim zsh util-linux-user dnf-plugins-core
 sudo flatpak install slack bitwarden spotify zoom signal
 
 
 # Brave
-sudo dnf install dnf-plugins-core
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
 sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 sudo dnf install brave-browser
-
 # Open brave and set up settings sync
 
 
 # Drives
-echo "UUID=29071D3603B7A859   /mnt/VM/      ntfs-3g    uid=1000,gid=1000,rw,user,exec,umask=000 0 0
-UUID=5A42FF7E42FF5D67   /mnt/Games/     ntfs-3g uid=1000,gid=1000,rw,user,exec,umask=000 0 0" | sudo tee -a /etc/fstab
+read -p 'Would you like to add the vm and game drives? [Y/n]: ' input
+clean=`echo ${input:0:1} | tr '[:upper:]' '[:lower:]'`
+
+if [[ $clean == 'n' ]]; then
+    echo 'Drives not added'
+else
+    echo "UUID=29071D3603B7A859   /mnt/VM/      ntfs-3g    uid=1000,gid=1000,rw,user,exec,umask=000 0 0
+    UUID=5A42FF7E42FF5D67   /mnt/Games/     ntfs-3g uid=1000,gid=1000,rw,user,exec,umask=000 0 0" | sudo tee -a /etc/fstab
+    echo 'Drives added'
+fi
 
 
 # Code file structure
@@ -57,22 +63,22 @@ git commit -m "setup"
 git push
 
 
-
-
 # Mega
 cd $HOME/Downloads
 wget https://mega.nz/linux/repo/Fedora_36/x86_64/megasync-Fedora_36.x86_64.rpm
 sudo dnf install ./megasync-Fedora_36.x86_64.rpm
 mkdir $HOME/mega
 
-# The following lines are for a GNOME install
-wget https://mega.nz/linux/repo/Fedora_36/x86_64/nautilus-megasync-Fedora_36.x86_64.rpm
-sudo dnf install ./nautilus-megasync-Fedora_36.x86_64.rpm
-
-# The following lines are for a KDE install
-# wget https://mega.nz/linux/repo/Fedora_36/x86_64/dolphin-megasync-Fedora_36.x86_64.rpm
-# sudo dnf install ./dolphin-megasync-Fedora_36.x86_64.rpm
-
+if [[ "$XDG_CURRENT_DESKTOP" == "KDE" ]]; then
+    wget https://mega.nz/linux/repo/Fedora_36/x86_64/dolphin-megasync-Fedora_36.x86_64.rpm
+    sudo dnf install ./dolphin-megasync-Fedora_36.x86_64.rpm
+elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
+    wget https://mega.nz/linux/repo/Fedora_36/x86_64/nautilus-megasync-Fedora_36.x86_64.rpm
+    sudo dnf install ./nautilus-megasync-Fedora_36.x86_64.rpm
+else
+    echo "Unsupported Desktop Environment"
+    echo "Please manually add File Manager Integration from https://mega.io/desktop"
+fi
 # Open mega and sign in
 
 
@@ -84,14 +90,4 @@ alias dfs=dotfiles
 
 dfs checkout
 dfs submodule update
-
-
-# Install omz plugins
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-git clone https://github.com/jeffreytse/zsh-vi-mode ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-vi-mode
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-# Install neovim plugins
-git clone --depth 1 https://github.com/wbthomason/packer.nvim $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
 
