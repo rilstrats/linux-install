@@ -72,10 +72,10 @@ mkdir $HOME/mega
 
 if [[ "$XDG_CURRENT_DESKTOP" == "KDE" ]]; then
     wget https://mega.nz/linux/repo/Fedora_36/x86_64/dolphin-megasync-Fedora_36.x86_64.rpm
-    sudo dnf install ./dolphin-megasync-Fedora_36.x86_64.rpm
+    sudo dnf install -y ./dolphin-megasync-Fedora_36.x86_64.rpm
 elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
     wget https://mega.nz/linux/repo/Fedora_36/x86_64/nautilus-megasync-Fedora_36.x86_64.rpm
-    sudo dnf install ./nautilus-megasync-Fedora_36.x86_64.rpm
+    sudo dnf install -y ./nautilus-megasync-Fedora_36.x86_64.rpm
 else
     echo "Unsupported Desktop Environment"
     echo "Please manually add File Manager Integration from https://mega.io/desktop"
