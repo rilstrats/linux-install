@@ -3,7 +3,8 @@
 
 # update and install
 sudo dnf update -y
-sudo dnf install -y wget discord ntfs-3g neovim zsh util-linux-user dnf-plugins-corevirt-manager 
+# packages already installed but needed to work: wget ntfs-3g
+sudo dnf install -y discord neovim virt-manager zsh dnf-plugins-core util-linux-user
 sudo flatpak install slack bitwarden spotify zoom signal
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
