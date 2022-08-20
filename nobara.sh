@@ -70,7 +70,6 @@ fi
 cd $HOME
 git clone --bare https://github.com/rilstrats/.dotfiles.git
 
-
 dfs checkout -f
 dfs submodule init
 dfs submodule update
