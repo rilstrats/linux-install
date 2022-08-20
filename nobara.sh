@@ -1,10 +1,21 @@
 #!/bin/bash
 
 
+# aliases (need to be set earlier as there was issues)
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
+alias dfs=dotfiles
+
+
+# time and hostname
+timedatectl set-local-rtc 0
+read -p "What would you like to set the hostname to? " name
+hostnamectl hostname $name
+
+
 # update and install
 sudo dnf update -y
 # packages already installed but needed to work: wget ntfs-3g
-sudo dnf install -y discord neovim virt-manager zsh dnf-plugins-core util-linux-user
+sudo dnf install -y alacritty discord neovim virt-manager zsh dnf-plugins-core util-linux-user
 sudo flatpak install slack bitwarden spotify zoom signal
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
@@ -59,8 +70,6 @@ fi
 cd $HOME
 git clone --bare https://github.com/rilstrats/.dotfiles.git
 
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
-alias dfs=dotfiles
 
 dfs checkout -f
 dfs submodule init
