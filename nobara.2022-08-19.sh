@@ -33,7 +33,7 @@ fi
 # Open mega and sign in
 
 
-# Drives
+# fstab 
 read -p 'Would you like to add the vm and game drives? [Y/n]: ' input
 clean=`echo ${input:0:1} | tr '[:upper:]' '[:lower:]'`
 
@@ -47,7 +47,7 @@ else
 fi
 
 
-# .dotfiles clone
+# .dotfiles 
 cd $HOME
 git clone --bare https://github.com/rilstrats/.dotfiles.git
 
@@ -59,7 +59,7 @@ dfs submodule init
 dfs submodule update
 
 
-# Code file structure
+# code
 cd $HOME
 mkdir code; cd code
 mkdir src; cd src
@@ -68,7 +68,7 @@ mkdir rilstrats byui-csa
 
 
 # Git
-# Git Credential Manager
+# git-credential-manager
 wget https://raw.githubusercontent.com/GitCredentialManager/git-credential-manager/main/src/linux/Packaging.Linux/install-from-source.sh
 cat install-from-source.sh | sed "s/case \"\$distribution\" in/case \"fedora\" in/g" > install-from-source.fedora.sh
 chmod +x install-from-source.fedora.sh
