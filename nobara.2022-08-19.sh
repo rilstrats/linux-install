@@ -3,7 +3,7 @@
 
 # update and install
 sudo dnf update -y
-sudo dnf install -y wget discord ntfs-3g neovim zsh util-linux-user dnf-plugins-coreqemu virt-manager libvirt
+sudo dnf install -y wget discord ntfs-3g neovim zsh util-linux-user dnf-plugins-corevirt-manager 
 sudo flatpak install slack bitwarden spotify zoom signal
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
@@ -32,6 +32,12 @@ else
     echo "Please manually add File Manager Integration from https://mega.io/desktop"
 fi
 # open mega and sign in
+
+
+# qemu/libvirt (unsure if necessary as VMs will run without)
+# sudo dnf install qemu libvirt
+# sudo systemctl enable libvirtd
+# sudo systemctl start libvirtd
 
 
 # fstab 
