@@ -8,6 +8,7 @@ alias dfs=dotfiles
 
 # time and hostname
 timedatectl set-local-rtc 0
+timedatectl set-timezone America/Denver
 read -p "What would you like to set the hostname to? " name
 hostnamectl hostname $name
 
