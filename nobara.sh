@@ -67,6 +67,10 @@ else
 fi
 
 
+# wally (for moonlander keyboard)
+sudo cp other/50-wally.rules /etc/udev/rules.d/50-wally.rules
+
+
 # .dotfiles 
 cd $HOME
 git clone --bare https://github.com/rilstrats/.dotfiles.git
