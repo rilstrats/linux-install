@@ -1,16 +1,11 @@
 #!/bin/bash
 
 
-# aliases (need to be set earlier as there was issues)
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
-alias dfs=dotfiles
-
-
 # time and hostname
-timedatectl set-local-rtc 0
-timedatectl set-timezone America/Denver
+sudo timedatectl set-local-rtc 0
+sudo timedatectl set-timezone America/Denver
 read -p "What would you like to set the hostname to? " name
-hostnamectl hostname $name
+sudo hostnamectl hostname $name
 
 
 # update and install
@@ -76,9 +71,9 @@ sudo groupadd plugdev; sudo usermod -aG plugdev $USER
 cd $HOME
 git clone --bare https://github.com/rilstrats/.dotfiles.git
 
-dfs checkout -f
-dfs submodule init
-dfs submodule update
+/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME checkout -f
+/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME submodule init
+/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME submodule update
 
 
 # code
@@ -87,24 +82,4 @@ mkdir code; cd code
 mkdir src; cd src
 mkdir github.com; cd github.com
 mkdir rilstrats 
-
-
-# git
-# git-credential-manager
-wget https://raw.githubusercontent.com/GitCredentialManager/git-credential-manager/main/src/linux/Packaging.Linux/install-from-source.sh
-cat install-from-source.sh | sed "s/case \"\$distribution\" in/case \"fedora\" in/g" > install-from-source.fedora.sh
-chmod +x install-from-source.fedora.sh
-./install-from-source.fedora.sh
-git-credential-manager-core configure
-
-# git clone (should open browser to authenticate)
-cd $HOME/code/src/github.com/rilstrats
-git clone https://github.com/rilstrats/gcm-check.git
-
-# git push (should automatically authenticate)
-cd $HOME/code/src/github.com/rilstrats/gcm-check
-date >> setup.txt
-git add .
-git commit -m "setup"
-git push
 
