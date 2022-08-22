@@ -42,10 +42,12 @@ fi
 # open mega and sign in
 
 
-# qemu/libvirt (unsure if necessary as VMs will run without)
-# sudo dnf install qemu libvirt
-# sudo systemctl enable libvirtd
-# sudo systemctl start libvirtd
+# code
+cd $HOME
+mkdir code; cd code
+mkdir src; cd src
+mkdir github.com; cd github.com
+mkdir rilstrats 
 
 
 # fstab 
@@ -74,12 +76,4 @@ git clone --bare https://github.com/rilstrats/.dotfiles.git
 /usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME checkout -f
 /usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME submodule init
 /usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME submodule update
-
-
-# code
-cd $HOME
-mkdir code; cd code
-mkdir src; cd src
-mkdir github.com; cd github.com
-mkdir rilstrats 
 
