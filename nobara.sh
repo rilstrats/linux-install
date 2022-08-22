@@ -11,7 +11,7 @@ sudo hostnamectl hostname $name
 # update and install
 sudo dnf update -y
 # packages already installed but needed to work: wget ntfs-3g
-sudo dnf install -y alacritty discord neovim virt-manager zsh dnf-plugins-core util-linux-user
+sudo dnf install -y alacritty discord neovim qemu virt-manager zsh dnf-plugins-core util-linux-user
 sudo flatpak install slack bitwarden spotify zoom signal
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
