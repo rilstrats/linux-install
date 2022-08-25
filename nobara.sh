@@ -65,7 +65,7 @@ fi
 
 
 # wally (for moonlander keyboard)
-sudo cp other/50-wally.rules /etc/udev/rules.d/50-wally.rules
+sudo cp $HOME/code/src/github.com/rilstrats/linux-install/other/50-wally.rules /etc/udev/rules.d/50-wally.rules
 sudo groupadd plugdev; sudo usermod -aG plugdev $USER
 
 
