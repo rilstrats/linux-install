@@ -22,10 +22,10 @@ sudo hostnamectl hostname $name
 
 # update and install
 sudo dnf update -y
-# packages already installed but needed to work: wget ntfs-3g
-sudo dnf install -y alacritty discord neovim qemu virt-manager zsh dnf-plugins-core util-linux-user
+# packages already installed but needed to work: flatpak git wget ntfs-3g
+sudo dnf install -y alacritty discord fzf neovim qemu virt-manager zsh dnf-plugins-core util-linux-user
 sudo flatpak install slack bitwarden spotify zoom signal
-git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+git clone --depth 1 https://github.com/wbthomason/packer.nvim $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 
 # brave
@@ -35,10 +35,44 @@ sudo dnf -y install brave-browser
 # open brave and set up settings sync
 
 
-# mega
+# code structure (based on go standards)
+mkdir -p $HOME/code/src/github.com/rilstrats $HOME/code/src/github.com/byui-csa
+
+
+# .dotfiles 
+git clone --bare https://github.com/rilstrats/.dotfiles.git $HOME/.dotfiles.git 
+
+/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME checkout -f
+/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME submodule init
+/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME submodule update
+
+
+# fstab 
+if [[ $device == 'desktop' ]]; then
+    echo "UUID=29071D3603B7A859   /mnt/vm/      ntfs-3g    uid=1000,gid=1000,rw,user,exec,umask=000 0 0
+    UUID=5A42FF7E42FF5D67   /mnt/games/     ntfs-3g uid=1000,gid=1000,rw,user,exec,umask=000 0 0" | sudo tee -a /etc/fstab
+fi
+
+
+# wally (for moonlander keyboard)
+if [[ $device == 'desktop' ]]; then
+    sudo cp $HOME/code/src/github.com/rilstrats/linux-install/other/50-wally.rules /etc/udev/rules.d/50-wally.rules
+    sudo groupadd plugdev; sudo usermod -aG plugdev $USER
+fi
+
+
+# surface
+if [[ $device == 'laptop' ]]; then
+    sudo dnf config-manager --add-repo=https://pkg.surfacelinux.com/fedora/linux-surface.repo
+    sudo dnf install -y --allowerasing iptsd libwacom-surface
+    sudo systemctl enable iptsd
+    # also requires a reboot
+fi
+
+
+# mega (last because this script switches directories)
 mkdir $HOME/mega
 
-cd $HOME/Downloads
 wget https://mega.nz/linux/repo/Fedora_36/x86_64/megasync-Fedora_36.x86_64.rpm
 sudo dnf install ./megasync-Fedora_36.x86_64.rpm
 
@@ -59,48 +93,4 @@ else
     echo "Please manually add File Manager Integration from https://mega.io/desktop"
 fi
 # open mega and sign in
-
-
-# code
-mkdir -p $HOME/code/src/github.com/rilstrats $HOME/code/src/github.com/byui-csa
-
-
-# fstab 
-# read -p 'Would you like to add the vm and game drives? [Y/n]: ' input
-# fstab=`echo ${input:0:1} | tr '[:upper:]' '[:lower:]'`
-
-# if [[ $fstab == 'n' ]]; then
-#     echo 'Drives not added'
-# else
-
-if [[ $device == 'desktop' ]]; then
-    echo "UUID=29071D3603B7A859   /mnt/vm/      ntfs-3g    uid=1000,gid=1000,rw,user,exec,umask=000 0 0
-    UUID=5A42FF7E42FF5D67   /mnt/games/     ntfs-3g uid=1000,gid=1000,rw,user,exec,umask=000 0 0" | sudo tee -a /etc/fstab
-    echo 'Drives added'
-fi
-
-
-# wally (for moonlander keyboard)
-if [[ $device == 'desktop' ]]; then
-    sudo cp other/50-wally.rules /etc/udev/rules.d/50-wally.rules
-    sudo groupadd plugdev; sudo usermod -aG plugdev $USER
-fi
-
-
-# surface
-if [[ $device == 'laptop' ]]; then
-    sudo dnf config-manager --add-repo=https://pkg.surfacelinux.com/fedora/linux-surface.repo
-    sudo dnf install --allowerasing iptsd libwacom-surface
-    sudo systemctl enable iptsd
-    # also requires a reboot
-fi
-
-
-# .dotfiles 
-cd $HOME
-git clone --bare https://github.com/rilstrats/.dotfiles.git
-
-/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME checkout -f
-/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME submodule init
-/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME submodule update
 
