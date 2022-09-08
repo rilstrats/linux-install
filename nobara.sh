@@ -73,6 +73,7 @@ fi
 # mega (last because this script switches directories)
 mkdir $HOME/mega
 
+cd $HOME/Downloads
 wget https://mega.nz/linux/repo/Fedora_36/x86_64/megasync-Fedora_36.x86_64.rpm
 sudo dnf install ./megasync-Fedora_36.x86_64.rpm
 
