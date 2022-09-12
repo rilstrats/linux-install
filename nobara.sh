@@ -28,6 +28,10 @@ sudo flatpak install slack bitwarden spotify zoom signal
 git clone --depth 1 https://github.com/wbthomason/packer.nvim $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 
+# lunarvim
+ bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+
+
 # brave
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
 # sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
