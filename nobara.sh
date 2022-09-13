@@ -29,7 +29,7 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim $HOME/.local/share
 
 
 # lunarvim
- bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
 
 
 # brave
