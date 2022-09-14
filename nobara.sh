@@ -91,7 +91,7 @@ elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
     
 elif [[ "$XDG_CURRENT_DESKTOP" == "i3" || "$XDG_CURRENT_DESKTOP" == "XFCE" ]]; then
     wget https://mega.nz/linux/repo/Fedora_36/x86_64/thunar-megasync-Fedora_36.x86_64.rpm
-    sudo dnf install -y ./nautilus-megasync-Fedora_36.x86_64.rpm
+    sudo dnf install -y ./thunar-megasync-Fedora_36.x86_64.rpm
 
 else
     echo "Unsupported Desktop Environment"
