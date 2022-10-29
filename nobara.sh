@@ -23,10 +23,13 @@ sudo hostnamectl hostname $name
 # update and install
 sudo dnf update -y
 # packages already installed but needed to work: flatpak git wget ntfs-3g
-sudo dnf install -y alacritty discord fzf gh neovim qemu virt-manager zsh dnf-plugins-core util-linux-user
+sudo dnf install -y alacritty discord fzf gh neovim qemu virt-manager zsh dnf-plugins-core util-linux-user cargo
 sudo flatpak install slack bitwarden spotify zoom signal
 git clone --depth 1 https://github.com/wbthomason/packer.nvim $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
 
+# node (necessary for lunarvim)
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+nvm install node
 
 # lunarvim
 bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
